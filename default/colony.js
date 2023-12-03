@@ -10,9 +10,9 @@
 // Export
 
 
-const harvesterCount = 7;
-const upgraderCount = 2;
-const builderCount = 1;
+const harvesterCount = 4;
+const upgraderCount = 3;
+const builderCount = 2;
 const extensionCount = 5;
 
 class colony{
@@ -35,7 +35,6 @@ class colony{
 
     makeCreeps(){
     //spawn up to a number of each role
-
     if(this.upgraders.length < upgraderCount) {
         var newName = 'Upgrader' + Game.time;
         // console.log('Spawning new Upgrader: ' + newName);
@@ -50,14 +49,30 @@ class colony{
             {memory: {role: 'builder'}});
     }
 
-    if(this.harvesters.length < harvesterCount) {
-        var newName = 'Harvester' + Game.time;
-        // console.log('Spawning new harvester: ' + newName);
-        Game.spawns['Spawn1'].spawnCreep([WORK,CARRY,MOVE], newName, 
+        if(this.harvesters.length < harvesterCount) {
+            var newName = 'Harvester' + Game.time;
+            // console.log('Spawning new harvester: ' + newName);
+            Game.spawns['Spawn1'].spawnCreep([WORK,CARRY,MOVE], newName, 
             {memory: {role: 'harvester'}});
-    }   
+        }   
 
     }
+
+    handleConstructionSites() {
+        var totalExtensions = this.extensions.length + this.extensionBuildSites.length;
+    
+        if((totalExtensions) < extensionCount) {
+            var newName = 'Extension' + Game.time;
+            var spawnPosition = Game.spawns['Spawn1'].pos;
+    
+            console.log('______________________________________________________________________');
+            console.log('Finding a new extension construction site: ' + newName);
+            
+            var result = Game.rooms['W5N8'].createConstructionSite(spawnPosition.x - (3 * Math.random()) , spawnPosition.y  - (3* Math.random()), STRUCTURE_EXTENSION, newName);
+            console.log('Extension construction site result: ' + result);
+        }
+    }
+    
 
 
     log(){

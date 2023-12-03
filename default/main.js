@@ -32,6 +32,7 @@ module.exports.loop = function () {
         var thisColony = colonyArray[i];
         thisColony.log();
         thisColony.makeCreeps();
+        thisColony.handleConstructionSites();
     }
 
       //Add roles. Tells the creeps in the game how to behave.
