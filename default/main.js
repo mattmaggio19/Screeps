@@ -32,7 +32,7 @@ module.exports.loop = function () {
         for (let i = 0; i < RegionArray.length; i++){
             var thisRegion = RegionArray[i];
             thisRegion.log();
-            thisRegion.reallocateCreeps();   
+            //thisRegion.reallocateCreeps();   
             thisRegion.makeCreeps();
             thisRegion.handleConstructionSites();
         }

@@ -4,9 +4,9 @@
 
 
 
-const harvesterCount = 4;
-const upgraderCount = 1;
-const builderCount = 0;
+const harvesterCount = 6;
+const upgraderCount = 2;    
+const builderCount = 3;
 const extensionCount = 5;
 
 class region{
@@ -27,16 +27,19 @@ class region{
     }
 
     reallocateCreeps(){
-        // reassign roles in case all harvesters die. Since we are only making worker bodys any of them can harvest
+        // TODO reassign roles in case all harvesters die. Since we are only making worker bodys any of them can harvest
         // console.log("inside reallocateCreeps  ");
         if (this.harvesters.length < harvesterCount){
             console.log("insufficent harvestor count");
             var reassignCounter = harvesterCount - this.harvesters.length;
             var nonHarvestors = _.filter(Game.creeps, (creep) => creep.memory.role != 'harvester')
             for (var creep in nonHarvestors){
+                console.log();
                 if (reassignCounter > 0 ){
-                    console.log("creep reassigned to harvestor");
-                    creep.memory.role = 'harvester';
+                    console.log("creep reassigned to harvestor" + creep.name);
+                    if (Memory.creeps[creep]){
+                        Memory.creeps[creep] = {'role': 'harvestor'};
+                    }                    
                     reassignCounter -= 1;
                 }
             }          
