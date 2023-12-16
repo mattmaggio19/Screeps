@@ -6,7 +6,7 @@ var roleHarvester = {
 
         if(creep.store.getFreeCapacity() > 0) {      
             
-            //First check if there is a nearby source and keep mining it if so.
+            //First check if there is a nearby source and keep mining it if so. Makes harvesters sticky.
             var nearbySources = creep.room.find(FIND_SOURCES, {
                 filter: (source) => {
                     return Math.abs(source.pos.x - creep.pos.x) <= 1
@@ -18,10 +18,10 @@ var roleHarvester = {
                 creep.harvest(nearbySources[0]);
             }
             else{
+                // if we are not at a mining location, look for valid sources
                 var validRoomSources = [];
                 var chosenRoomSource =[];
-                var roomSources = creep.room.find(FIND_SOURCES);
-                // var tarrain = Game.map.getRoomTerrain();
+                var roomSources = creep.room.find(FIND_SOURCES);                
                 for(var roomSource in roomSources){
                     // console.log(roomSources[roomSource].pos);
                     var openSpaces = 0;      
@@ -75,23 +75,19 @@ var roleHarvester = {
                         //Choose the best validRoomSource to use.
                         chosenRoomSource.push(validRoomSources[bestIndex]);
                         if(chosenRoomSource.length > 0 ){
-                            // var Sources = creep.room.find(FIND_SOURCES);
-                            if(creep.harvest(roomSources[0]) == ERR_NOT_IN_RANGE) {   
-                                creep.moveTo(roomSources[0], {visualizePathStyle: {stroke: '#ffaa00'}});                    
+                            // var Sources = creep.room.find(FIND_SOURCES); //OLDEST WAY.
+                            if(creep.harvest(chosenRoomSource[0]) == ERR_NOT_IN_RANGE) {   
+                                creep.moveTo(chosenRoomSource[0], {visualizePathStyle: {stroke: '#ffaa00'}});                    
                             }      
                         }                    
                     }
                     else{
-                        //TODO GO TO A DIFFERENT ROOM.
+                        //TODO GO TO A DIFFERENT ROOM 
                     }
-
-            }
-
-           
-                    
-            
+                }                     
         }
         else {
+            //This is what the creep does when it is full. 
             var targets = creep.room.find(FIND_STRUCTURES, {
                     filter: (structure) => {
                         return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN) &&
