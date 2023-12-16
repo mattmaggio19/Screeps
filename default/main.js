@@ -1,7 +1,7 @@
 var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
-var colony = require('colony');
+var region = require('region');
 
 module.exports.loop = function () {
 
@@ -15,25 +15,27 @@ module.exports.loop = function () {
     }
 
     
-    //Colony level logic first get the list of rooms.
+    //Region level logic first get the list of rooms.
     var roomNameArray = [];  
-    var colonyArray = []
+    var colonyArray = [];
+    var RegionArray = [];
     for (var spawnName in Game.spawns){
         var spawn = Game.spawns[spawnName];      
         if (!roomNameArray.includes(spawn.room.name)){
             roomNameArray.push(spawn.room.name);
-            var colony1 = new colony(spawn.room.name);``
-            colonyArray.push(colony1);
+            var region1 = new region(spawn.room.name);``
+            RegionArray.push(region1);
         }      
     }    
 
-    //Use the colonies we created.
-    for (let i = 0; i < colonyArray.length; i++){
-        var thisColony = colonyArray[i];
-        thisColony.log();
-        thisColony.makeCreeps();
-        thisColony.handleConstructionSites();
-    }
+
+    // use regions
+        for (let i = 0; i < RegionArray.length; i++){
+            var thisRegion = RegionArray[i];
+            thisRegion.log();
+            thisRegion.makeCreeps();
+            thisRegion.handleConstructionSites();
+        }
 
       //Add roles. Tells the creeps in the game how to behave.
     for(var name in Game.creeps) {

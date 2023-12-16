@@ -1,13 +1,7 @@
 
-//Here is where we are putting colony logic, putting down construction sites.
+//Here is where we are putting region logic. A region is a group of owned rooms (minimum 1)
+// and their surrounding neutral rooms.
 
-
-//Radial pattern for construction sites,
-
-// Import
-// const colony = require('colony'); 
-
-// Export
 
 
 const harvesterCount = 4;
@@ -15,8 +9,7 @@ const upgraderCount = 3;
 const builderCount = 2;
 const extensionCount = 5;
 
-class colony{
-
+class region{
     constructor(roomName){
         this.roomName = roomName
         this.updateData();
@@ -78,7 +71,7 @@ class colony{
 
     log(){
         console.log('______________________________________________________________________');
-        console.log('Reporting On colony in room: '+ this.roomName)
+        console.log('Reporting On Region based in room: '+ this.roomName)
         console.log('Energy: ' + this.overallAvailableEnergy + '/' + this.energyCapacity);
         console.log('Harvesters: ' + this.harvesters.length + '/' + harvesterCount);
         console.log('Upgraders: ' + this.upgraders.length + '/' + upgraderCount);
@@ -90,4 +83,4 @@ class colony{
 
 
 }
-module.exports = colony;
+module.exports = region;
