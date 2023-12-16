@@ -5,8 +5,8 @@
 
 
 const harvesterCount = 4;
-const upgraderCount = 3;
-const builderCount = 2;
+const upgraderCount = 1;
+const builderCount = 0;
 const extensionCount = 5;
 
 class region{
@@ -18,8 +18,7 @@ class region{
     updateData(){      
         this.overallAvailableEnergy = Game.rooms[ this.roomName].energyAvailable;
         this.energyCapacity = Game.rooms[ this.roomName].energyCapacityAvailable;
-        // this.harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
-        this.harvesters =  
+        this.harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
         this.upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
         this.builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
         this.extensions = _.filter(Game.structures, (structure) => structure.structureType == STRUCTURE_EXTENSION);
@@ -27,24 +26,42 @@ class region{
 
     }
 
+    reallocateCreeps(){
+        // reassign roles in case all harvesters die. Since we are only making worker bodys any of them can harvest
+        // console.log("inside reallocateCreeps  ");
+        if (this.harvesters.length < harvesterCount){
+            console.log("insufficent harvestor count");
+            var reassignCounter = harvesterCount - this.harvesters.length;
+            var nonHarvestors = _.filter(Game.creeps, (creep) => creep.memory.role != 'harvester')
+            for (var creep in nonHarvestors){
+                if (reassignCounter > 0 ){
+                    console.log("creep reassigned to harvestor");
+                    creep.memory.role = 'harvester';
+                    reassignCounter -= 1;
+                }
+            }          
+        }
+        this.updateData();
+    }
+
     makeCreeps(){
     //spawn up to a number of each role
     if(this.harvesters.length < harvesterCount) {
         var newName = 'Harvester' + Game.time;
-        console.log('Spawning new harvester: ' + newName);
+        //console.log('Spawning new harvester: ' + newName);
         var result  = Game.spawns['Spawn1'].spawnCreep([WORK,CARRY,MOVE], newName, 
         {memory: {role: 'harvester'}});
-        console.log('Spawning new harvester: ' + newName  + '  Result: '+ result.toString() ); 
+        //console.log('Spawning new harvester: ' + newName  + '  Result: '+ result.toString() ); 
     }   
 
-    if(this.upgraders.length < upgraderCount) {
+    else if(this.upgraders.length < upgraderCount) {
         var newName = 'Upgrader' + Game.time;
         // console.log('Spawning new Upgrader: ' + newName);
         Game.spawns['Spawn1'].spawnCreep([WORK,CARRY,MOVE], newName, 
             {memory: {role: 'upgrader'}});
     }
 
-       if(this.builders.length < builderCount) {
+    else if(this.builders.length < builderCount) {
         var newName = 'Builder' + Game.time;
         // console.log('Spawning new Upgrader: ' + newName);
         Game.spawns['Spawn1'].spawnCreep([WORK,CARRY,MOVE], newName, 

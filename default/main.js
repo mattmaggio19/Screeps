@@ -17,7 +17,6 @@ module.exports.loop = function () {
     
     //Region level logic first get the list of rooms.
     var roomNameArray = [];  
-    var colonyArray = [];
     var RegionArray = [];
     for (var spawnName in Game.spawns){
         var spawn = Game.spawns[spawnName];      
@@ -33,6 +32,7 @@ module.exports.loop = function () {
         for (let i = 0; i < RegionArray.length; i++){
             var thisRegion = RegionArray[i];
             thisRegion.log();
+            thisRegion.reallocateCreeps();   
             thisRegion.makeCreeps();
             thisRegion.handleConstructionSites();
         }
