@@ -36,7 +36,7 @@ module.exports.loop = function () {
             thisRegion.makeCreeps();
             thisRegion.handleConstructionSites();
         }
-        
+
       //Add roles. Tells the creeps in the game how to behave.
     for(var name in Game.creeps) {
         var creep = Game.creeps[name];

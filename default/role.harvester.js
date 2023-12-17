@@ -3,7 +3,6 @@ var roleHarvester = {
     /** @param {Creep} creep   **/
     //** The harvester is a role for any creeps with a [move, work, carry] body. It is a general early game role that is replaced by extractors + carriers   **/
     run: function(creep) {       
-        
         if(creep.store.getFreeCapacity() > 0) {      
             
             //First check if there is a nearby source and keep mining it if so. Makes harvesters sticky.
