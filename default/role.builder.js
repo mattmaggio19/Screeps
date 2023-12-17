@@ -3,7 +3,7 @@ var roleBuilder = {
     /** @param {Creep} creep **/
     run: function(creep) {
 
-		
+		console.log(creep);
 	    if(creep.memory.building && creep.store[RESOURCE_ENERGY] == 0) {
             creep.memory.building = false;
             creep.say('🔄 pick up');
