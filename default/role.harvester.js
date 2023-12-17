@@ -2,7 +2,7 @@ var roleHarvester = {
 
     /** @param {Creep} creep   **/
     //** The harvester is a role for any creeps with a [move, work, carry] body. It is a general early game role that is replaced by extractors + carriers   **/
-    run: function(creep) {       
+    run: function(creep) {            
         if(creep.store.getFreeCapacity() > 0) {      
             
             //First check if there is a nearby source and keep mining it if so. Makes harvesters sticky.
@@ -17,6 +17,7 @@ var roleHarvester = {
                 creep.harvest(nearbySources[0]);
             }
             else{
+
                 // if we are not at a mining location, look for valid sources
                 var validRoomSources = [];
                 var chosenRoomSource =[];
@@ -45,9 +46,9 @@ var roleHarvester = {
                             minersCount += 1;
                         }                
                     }               
-    
-                    // console.log(openSpaces + '  Open spaces found');
-                    // console.log(minersCount + '  Creeps mining found');
+
+                    console.log(openSpaces + '  Open spaces found');
+                    console.log(minersCount + '  Creeps mining found');
     
                     if(openSpaces  - minersCount > 0){
                         validRoomSources.push(roomSources[roomSource]);

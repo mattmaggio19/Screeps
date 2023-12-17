@@ -5,7 +5,7 @@
 
 
 
-const ROLE_HARVESTOR = 'harvestor';
+const ROLE_HARVESTOR = 'harvester'; //not harvestor XD
 const ROLE_UPGRADER = 'upgrader';
 const ROLE_BUILDER = 'builder';
 
