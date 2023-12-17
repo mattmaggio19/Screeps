@@ -32,11 +32,11 @@ module.exports.loop = function () {
         for (let i = 0; i < RegionArray.length; i++){
             var thisRegion = RegionArray[i];
             thisRegion.log();
-            //thisRegion.reallocateCreeps();   
+            thisRegion.reallocateCreeps();   
             thisRegion.makeCreeps();
             thisRegion.handleConstructionSites();
         }
-
+        
       //Add roles. Tells the creeps in the game how to behave.
     for(var name in Game.creeps) {
         var creep = Game.creeps[name];
